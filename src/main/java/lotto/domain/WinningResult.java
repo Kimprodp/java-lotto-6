@@ -1,5 +1,6 @@
 package lotto.domain;
 
+import java.text.DecimalFormat;
 import java.util.LinkedHashMap;
 import lotto.domain.constants.WinningRank;
 
@@ -11,10 +12,10 @@ public class WinningResult {
     private int winningAmount;
     private double rateOfReturn;
 
-    public WinningResult(LinkedHashMap<WinningRank, Integer> result) {
+    public WinningResult(LinkedHashMap<WinningRank, Integer> result, int purchaseAmount) {
         this.result = result;
         calculateWinningAmount();
-        calculateRateOfReturn();
+        calculateRateOfReturn(purchaseAmount);
     }
 
     public LinkedHashMap<WinningRank, Integer> getResult() {
@@ -35,8 +36,7 @@ public class WinningResult {
         }
     }
 
-    private void calculateRateOfReturn() {
-        int purchaseAmount = result.size() * LottoMachine.PRICE;
+    private void calculateRateOfReturn(int purchaseAmount) {
         rateOfReturn = (double) winningAmount / purchaseAmount * PERCENTAGE;
     }
 }

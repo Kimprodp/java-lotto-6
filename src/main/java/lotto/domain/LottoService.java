@@ -20,7 +20,7 @@ public class LottoService {
             WinningRank winningRank = checkWiningResult(lotto);
             result.put(winningRank, checkValue(result, winningRank));
         }
-        return new WinningResult(result);
+        return new WinningResult(result, lottoTickets.size() * LottoMachine.PRICE);
     }
 
     private LinkedHashMap<WinningRank, Integer> setResult() {
