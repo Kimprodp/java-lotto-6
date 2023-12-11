@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class LottoMachine {
 
-    private static final int PRICE = 1_000;
+    public static final int PRICE = 1_000;
 
     public List<Lotto> purchaseLotto(int amount) {
         int quantity = calculateLottoQuantity(validatePurchaseAmount(amount));
