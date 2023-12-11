@@ -5,7 +5,7 @@ import lotto.domain.constants.WinningRank;
 
 public class WinningResult {
 
-    private LinkedHashMap<WinningRank, Integer> result;
+    private final LinkedHashMap<WinningRank, Integer> result;
 
     public WinningResult(LinkedHashMap<WinningRank, Integer> result) {
         this.result = result;

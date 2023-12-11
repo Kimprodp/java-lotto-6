@@ -7,19 +7,28 @@ import lotto.domain.constants.WinningRank;
 
 public class LottoService {
 
-    private WinningNumber winningNumber;
+    private final WinningNumber winningNumber;
+    private LinkedHashMap<WinningRank, Integer> result;
 
     public LottoService(WinningNumber winningNumber) {
         this.winningNumber = winningNumber;
+        result = setResult();
     }
 
     public WinningResult requestWinningResult(List<Lotto> lottoTickets) {
-        LinkedHashMap<WinningRank, Integer> winningResult = new LinkedHashMap<>();
         for (Lotto lotto : lottoTickets) {
             WinningRank winningRank = checkWiningResult(lotto);
-            winningResult.put(winningRank, checkValue(winningResult, winningRank));
+            result.put(winningRank, checkValue(result, winningRank));
         }
-        return new WinningResult(winningResult);
+        return new WinningResult(result);
+    }
+
+    private LinkedHashMap<WinningRank, Integer> setResult() {
+        LinkedHashMap<WinningRank, Integer> result = new LinkedHashMap<>();
+        for (WinningRank rank : WinningRank.values()) {
+            result.put(rank, 0);
+        }
+        return result;
     }
 
     private WinningRank checkWiningResult(Lotto lotto) {
@@ -27,9 +36,10 @@ public class LottoService {
         return Arrays.stream(WinningRank.values())
                 .filter(rank -> {
                     if (matchCount == WinningRank.SECOND.getNumberOfMatches()) {
-                        return rank.isBonusMatch() == checkBonusNumberMatch(lotto);
+                        return rank.getNumberOfMatches() == matchCount
+                                && rank.isBonusMatch() == checkBonusNumberMatch(lotto);
                     }
-                    return matchCount == rank.getNumberOfMatches();
+                    return rank.getNumberOfMatches() == matchCount;
                 })
                 .findFirst()
                 .orElse(WinningRank.NONE);
@@ -47,7 +57,7 @@ public class LottoService {
     }
 
     private int checkValue( LinkedHashMap<WinningRank, Integer> winningResult, WinningRank winningRank) {
-        if (winningResult.containsKey(winningRank)) {
+        if (winningResult.get(winningRank) != 0) {
             return winningResult.get(winningRank) + 1;
         }
         return 1;
