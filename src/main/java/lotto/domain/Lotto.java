@@ -39,7 +39,7 @@ public class Lotto {
         int count = (int) numbers.stream()
                 .distinct()
                 .count();
-        if (count < 6) {
+        if (count != 6) {
             throw new IllegalArgumentException("중복된 숫자가 있습니다.");
         }
     }

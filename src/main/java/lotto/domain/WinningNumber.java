@@ -52,7 +52,7 @@ public class WinningNumber {
         int count = (int) winNumber.stream()
                 .distinct()
                 .count();
-        if (count > 0) {
+        if (count != 6) {
             throw new IllegalArgumentException("중복된 숫자가 있습니다.");
         }
     }
