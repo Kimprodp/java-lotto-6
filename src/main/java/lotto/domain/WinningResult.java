@@ -1,6 +1,5 @@
 package lotto.domain;
 
-import java.text.DecimalFormat;
 import java.util.LinkedHashMap;
 import lotto.domain.constants.WinningRank;
 
