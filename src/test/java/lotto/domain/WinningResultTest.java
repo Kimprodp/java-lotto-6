@@ -16,7 +16,8 @@ class WinningResultTest {
 
     @BeforeEach
     void beforeEachTest() {
-        lottoService = new LottoService(new WinningNumber(List.of(1, 2, 3, 4, 5, 6), 8));
+        WinningNumber winningNumber = new WinningNumber(new Lotto(List.of(1, 2, 3, 4, 5, 6)), 8);
+        lottoService = new LottoService(winningNumber);
     }
 
     @DisplayName("6개가 일치할 경우 로또 1등 당첨이다.")

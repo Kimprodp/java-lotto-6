@@ -13,7 +13,8 @@ class LottoServiceTest {
         //given
         LottoMachine lottoMachine = new LottoMachine();
         List<Lotto> lottoTickets = lottoMachine.purchaseLotto(1000);
-        WinningNumber winningNumber = new WinningNumber(List.of(1, 2, 3, 4, 5, 6), 8);
+        WinningNumber winningNumber = new WinningNumber(new Lotto(List.of(1,2,3,4,5,6)), 8);
+
         LottoService lottoService = new LottoService(winningNumber);
 
         //when, then
