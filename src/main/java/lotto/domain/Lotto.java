@@ -1,6 +1,7 @@
 package lotto.domain;
 
 import java.util.List;
+import lotto.view.contants.Message;
 
 public class Lotto {
     private final List<Integer> numbers;
@@ -22,7 +23,7 @@ public class Lotto {
 
     private void validateSize(List<Integer> numbers) {
         if (numbers.size() != 6) {
-            throw new IllegalArgumentException("로또 번호의 개수는 6개 이어야 합니다.");
+            throw new IllegalArgumentException(Message.ERROR_LOTTO_NUMBERS_SIZE.getErrorMessage());
         }
     }
 
@@ -31,7 +32,7 @@ public class Lotto {
                 .anyMatch(n -> n < 1 || n > 45);
 
         if (isOverRange) {
-            throw new IllegalArgumentException("로또 번호는 1부터 45 사이의 숫자여야 합니다.");
+            throw new IllegalArgumentException(Message.ERROR_LOTTO_NUMBERS_RANGE.getErrorMessage());
         }
     }
 
@@ -40,7 +41,7 @@ public class Lotto {
                 .distinct()
                 .count();
         if (count != 6) {
-            throw new IllegalArgumentException("중복된 숫자가 있습니다.");
+            throw new IllegalArgumentException(Message.ERROR_LOTTO_NUMBERS_DUPLICATES.getErrorMessage());
         }
     }
 }
