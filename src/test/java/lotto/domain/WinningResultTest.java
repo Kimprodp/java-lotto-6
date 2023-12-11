@@ -122,6 +122,39 @@ class WinningResultTest {
         assertResult(result, 0, 0, 0, 0, 0, 1);
     }
 
+    @DisplayName("로또 1등과 2등에 당첨될 경우 당첨금은 2,030,000,000원 이다.")
+    @Test
+    void confirmWinningAmountByResult() {
+        //given
+        List<Integer> numbers1 = List.of(1, 2, 3, 4, 5, 6); // 구매자 로또 번호1
+        List<Integer> numbers2 = List.of(1, 2, 3, 4, 5, 8); // 구매자 로또 번호2
+        List<Lotto> lottoTickets = new ArrayList<>();
+        lottoTickets.add(new Lotto(numbers1));
+        lottoTickets.add(new Lotto(numbers2));
+
+        //when
+        WinningResult winningResult = lottoService.requestWinningResult(lottoTickets);
+
+        //then
+        assertThat(winningResult.getWinningAmount()).isEqualTo(2_030_000_000);
+    }
+
+    @DisplayName("로또 2장으로 5등 2개에 당첨될 경우 수익률은 500% 이다.")
+    @Test
+    void confirmRateOfReturnByResult() {
+        //given
+        List<Integer> numbers1 = List.of(1, 2, 3, 7, 8, 9); // 구매자 로또 번호1
+        List<Integer> numbers2 = List.of(1, 2, 3, 7, 8, 9); // 구매자 로또 번호2
+        List<Lotto> lottoTickets = new ArrayList<>();
+        lottoTickets.add(new Lotto(numbers1));
+        lottoTickets.add(new Lotto(numbers2));
+
+        //when
+        WinningResult winningResult = lottoService.requestWinningResult(lottoTickets);
+
+        //then
+        assertThat(winningResult.getRateOfReturn()).isEqualTo(500);
+    }
 
     private void assertResult(LinkedHashMap<WinningRank, Integer> result, int first, int second, int third, int fourth,
                               int fifth, int none) {
@@ -132,5 +165,4 @@ class WinningResultTest {
         assertThat(result.get(WinningRank.FIFTH)).isEqualTo(fifth);
         assertThat(result.get(WinningRank.NONE)).isEqualTo(none);
     }
-
 }
